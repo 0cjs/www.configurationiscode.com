@@ -1,0 +1,15 @@
+{
+  "name": "configurationiscode",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com.:cjs-cynic-net/configurationiscode.git"
+  },
+  "author": "Curt J. Sampson <cjs@cynic.net>",
+  "license": "UNLICENSED"
+}
