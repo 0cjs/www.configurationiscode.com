@@ -153,6 +153,9 @@ system. Production deployments obviously can't work this way.
 What etckeeper Adds to Git
 --------------------------
 
+* Can use regular `git commit` etc.
+* `etckeeper init` - also to fix perms
+
 
 To-do
 -----
