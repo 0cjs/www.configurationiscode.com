@@ -11,6 +11,13 @@ const metalsmith = require('metalsmith'),
     watch = require('metalsmith-watch'),
     moment = require('moment');
 
+// `branch` and `collections` use multimatch patterns:
+//     https://github.com/sindresorhus/multimatch
+// The original tutorial misinterpreted the documentation as saying
+// the `**` in `posts/**.html` would match a path with slashes in it,
+// but that is actually true only when `**` is "the only thing in a
+// path part," which appears to mean when it's `/**/`.
+
 const siteBuild = metalsmith(__dirname)
     .metadata({
         site: {
@@ -23,18 +30,19 @@ const siteBuild = metalsmith(__dirname)
     .use(excerpts())
     .use(collections({
         posts: {
-            pattern: 'posts/**/*.html',
+            pattern: 'blog/**/*.html',
             sortBy: 'publishDate',
             reverse: true
         }
     }))
-    .use(branch('posts/**/*.html')
+    .use(branch('blog/**/*.html')
         .use(permalinks({
-            pattern: 'posts/:title',
+            pattern: 'blog/:publishDate/:title/',
+            date: 'YYYY/MM',
             relative: false
         }))
     )
-    .use(branch('!posts/**/*.html')
+    .use(branch('!blog/**/*.html')
         .use(branch('!index.md')
             .use(permalinks({ relative: false }))
         )
