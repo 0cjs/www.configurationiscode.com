@@ -8,5 +8,7 @@ block main
         a(href='/'+post.path)!= post.title
       div!= post.excerpt
   else
-    h3= collections.posts.length
-    h3 there ain't no posts here, man
+    p.
+      No blog entries are currently available.
+      Try the #[a(href='/about') about page]
+      or #[a(href='/author') author bio].
