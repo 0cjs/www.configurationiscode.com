@@ -1,5 +1,4 @@
 ---
-layout: page.html
 title: Configuration is code!
 ---
 
