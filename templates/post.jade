@@ -3,12 +3,11 @@ extends layout
 block main
   h1= title
   div.byline
-    time(datetime='#{moment(publishDate).format("YYYY-MM-DD")}') #{moment(publishDate).format("YYYY-MM-DD")}
+    - var pubdate = moment(publishDate).format("YYYY-MM-DD")
+    - var moddate =  moment(modifyDate).format("YYYY-MM-DD")
+    time(datetime='#{pubdate}') #{pubdate}
     if modifyDate && moment(publishDate).isBefore(modifyDate)
-      | 
-      | (updated
-      | 
-      time(datetime='#{moment(modifyDate).format("YYYY-MM-DD")})') #{moment(modifyDate).format("YYYY-MM-DD")})
+      |  (updated #[time(datetime='#{moddate}') #{moddate}])
     | 
     address by #{author}
   div.content!= contents
