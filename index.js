@@ -55,7 +55,7 @@ const pipeline = metalsmith(__dirname)
 
 const logBuild = function (err) {
     if (err) { console.log(err); }
-        else { console.log('Site build complete!!!!!!!1111!!!11!'); }
+        else { console.log('OK'); }
 }
 
 if (!devMode) {
