@@ -6,10 +6,6 @@ author: Curt J. Sampson <cjs@cynic.net>
 template: post.jade
 ---
 
-First Post!
-===========
-
-
 I win! There is more below.
 
 Sed ut perspiciatis, unde omnis iste natus error sit voluptatem
