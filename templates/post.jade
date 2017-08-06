@@ -2,7 +2,13 @@ extends layout
 
 block main
   h1= title
-  div By #{author} | Published #{moment(publishDate).format("M.D.YYYY")}
+  div.byline
+    time(datetime='#{moment(publishDate).format("YYYY-MM-DD")}') #{moment(publishDate).format("YYYY-MM-DD")}
     if modifyDate && moment(publishDate).isBefore(modifyDate)
-      span Updated #{moment(modifyDate).format("M.D.YYYY")}
-  div!= contents
+      | 
+      | (updated
+      | 
+      time(datetime='#{moment(modifyDate).format("YYYY-MM-DD")})') #{moment(modifyDate).format("YYYY-MM-DD")})
+    | 
+    address by #{author}
+  div.content!= contents

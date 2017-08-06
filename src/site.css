@@ -1,1 +1,5 @@
 * { font-family: serif; }
+
+address { display: inline; }
+
+.content { margin-top: 10px; }
