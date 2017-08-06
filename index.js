@@ -1,5 +1,7 @@
 'use strict'
 
+const devMode = false   // If true, run a local server
+
 const metalsmith = require('metalsmith'),
     branch = require('metalsmith-branch'),
     collections = require('metalsmith-collections'),
@@ -20,7 +22,7 @@ const metalsmith = require('metalsmith'),
 
 const blogEntries = 'blog/**/*.html'
 
-const siteBuild = metalsmith(__dirname)
+const pipeline = metalsmith(__dirname)
     .metadata({
         site: {
         title: 'configurationiscode.com',
@@ -50,10 +52,18 @@ const siteBuild = metalsmith(__dirname)
         )
     )
     .use(templates({ engine: 'jade', moment: moment }))
+
+const logBuild = function (err) {
+    if (err) { console.log(err); }
+        else { console.log('Site build complete!!!!!!!1111!!!11!'); }
+}
+
+if (!devMode) {
+    pipeline
+    .build(logBuild)
+} else  {
+    pipeline
     .use(serve({ host: '0.0.0.0', port: 8080, verbose: true }))
     .use(watch({ pattern: '**/*', livereload: true }))
-    .build(function (err) {
-        if (err) { console.log(err); }
-            else { console.log('Site build complete!!!!!!!1111!!!11!'); }
-    })
-
+    .build(logBuild)
+}
