@@ -1,5 +1,5 @@
 ---
-title: Configuration is Code - Recent Posts
+title: Configuration is Code Blog
 template: blog-index.jade
 paginate: posts
 ---
