@@ -34,7 +34,7 @@ const pipeline = metalsmith(__dirname)
     .use(excerpts())
     .use(collections({
         posts: {
-            pattern: blogEntries,
+            pattern: [blogEntries, '!blog/index.html'],
             sortBy: 'publishDate',
             reverse: true
         }
