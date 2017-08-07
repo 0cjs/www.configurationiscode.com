@@ -9,8 +9,8 @@
   "scripts": {
     "distclean": "rm -rf build node_modules",
     "clean": "rm -rf build",
-    "build-site": "node .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "node .",
+    "test": "npm run build"
   },
   "repository": {
     "type": "git",
