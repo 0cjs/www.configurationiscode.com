@@ -51,7 +51,7 @@ const pipeline = metalsmith(__dirname)
             .use(permalinks({ relative: false }))
         )
     )
-    .use(templates({ engine: 'jade', moment: moment }))
+    .use(templates({ directory: 'template', engine: 'jade', moment: moment }))
 
 const logBuild = function (err) {
     if (err) { console.log(err); }
