@@ -1,6 +1,11 @@
 * { font-family: serif; }
 h1 { font-family: serif; }
 
-address { display: inline; }
+/* blog index page */
 
+.blog-index-date { font-size: 70%; }
+
+/* blog post pages */
+
+address { display: inline; }
 .content { margin-top: 10px; }

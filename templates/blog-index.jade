@@ -6,6 +6,9 @@ block main
     each post in collections.posts
       h3
         a(href='/'+post.path)!= post.title
+        - var pubdate = moment(post.publishDate).format('YYYY-MM-DD')
+        span.blog-index-date
+          time(datetime='#{pubdate}')  (#{pubdate})
       div!= post.excerpt
   else
     p.
