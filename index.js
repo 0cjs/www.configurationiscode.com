@@ -29,7 +29,7 @@ const pipeline = metalsmith(__dirname)
         url: 'http://configurationiscode.com'
     }})
     .source('./src')
-    .destination('./build')
+    .destination('./site')
     .use(markdown())
     .use(excerpts())
     .use(collections({
