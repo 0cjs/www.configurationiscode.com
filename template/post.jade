@@ -9,5 +9,5 @@ block main
     if modifyDate && moment(publishDate).isBefore(modifyDate)
       |  (updated #[time(datetime='#{moddate}') #{moddate}])
     | 
-    address by #{author}
+    address by #[a(href='mailto:#{email}') #{author}]
   div.content!= contents
