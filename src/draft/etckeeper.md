@@ -6,7 +6,7 @@ title: Why You Must Use etckeeper
 Why You Must Use etckeeper
 ==========================
 
-[TL;DR][tldr]: You configure systems, and [Configuration is Code][CisC].
+[TL;DR][tldr]: You configure systems, and [Configuration Is Code][CIC].
 So, just like coders, you should use Git or similar. Etckeeper lets
 you do this for your `/etc/` directories while (mostly) handling the
 permissions problems. (There are a few other sysadmin-specific issues:
@@ -174,7 +174,7 @@ To-do
 
 
 
-[CisC]: http://www.configurationiscode.tech/
+[CIC]: http://www.configurationiscode.tech/
 [etckeeper]: https://github.com/joeyh/etckeeper
 [Git]: https://en.wikipedia.org/wiki/Git
 [tldr]: https://en.wikipedia.org/wiki/TL;DR

@@ -1,4 +1,4 @@
-Configuration is Code Blog
+Configuration Is Code Blog
 ==========================
 
 This blog was quickly thrown together with [Metalsmith], using the

@@ -1,9 +1,9 @@
 ---
-title: Configuration is code!
+title: Configuration Is Code!
 template: page.jade
 ---
 
-Configuration is Code
+Configuration Is Code
 =====================
 
 Many developers seem to think that the text in configuration files,
