@@ -174,7 +174,7 @@ To-do
 
 
 
-[CIC]: http://www.configurationiscode.tech/
+[CIC]: https://www.configurationiscode.com/
 [etckeeper]: https://github.com/joeyh/etckeeper
 [Git]: https://en.wikipedia.org/wiki/Git
 [tldr]: https://en.wikipedia.org/wiki/TL;DR
