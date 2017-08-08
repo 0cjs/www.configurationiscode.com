@@ -1,5 +1,5 @@
 * { font-family: serif; }
-h1 { font-family: serif; }
+h1, h2, h3, h4, h5 { font-family: serif; }
 
 /* For all media with >= 800 px width, set our width to just 800. */
 @media (min-width: 800px)  {
