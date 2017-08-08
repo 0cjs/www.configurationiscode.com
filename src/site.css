@@ -6,6 +6,11 @@ h1, h2, h3, h4, h5 { font-family: serif; }
     .container { width: 800px; }
 }
 
+/* We really want to indent only code examples, but they're not marked
+   as different from other <pre> blocks so we just hack it at the moment
+   by doing all <pre> blocks. */
+pre { margin-left: 2em; }
+
 /* blog index page */
 .blog-index-date { font-size: 70%; }
 
