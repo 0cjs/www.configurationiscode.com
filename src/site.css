@@ -14,6 +14,12 @@ pre { margin-left: 2em; }
 /* blog index page */
 .blog-index-date { font-size: 70%; }
 
-/* blog post pages */
-address { display: inline; }
+/*
+  Blog post pages
+*/
+.byline { font-style: italic; }
+address {
+    display: inline;        /* Defaults to block in HTML */
+    font-style: inherit;    /* Bootstrap turned off inherit for <address>? */
+}
 .content { margin-top: 10px; }
