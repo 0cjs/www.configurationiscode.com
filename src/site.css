@@ -1,11 +1,14 @@
 * { font-family: serif; }
 h1 { font-family: serif; }
 
-/* blog index page */
+/* For all media with >= 800 px width, set our width to just 800. */
+@media (min-width: 800px)  {
+    .container { width: 800px; }
+}
 
+/* blog index page */
 .blog-index-date { font-size: 70%; }
 
 /* blog post pages */
-
 address { display: inline; }
 .content { margin-top: 10px; }
