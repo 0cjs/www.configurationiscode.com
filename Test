@@ -1,0 +1,114 @@
+#!/usr/bin/env bash
+set -e -o pipefail
+trap 'x=$?; echo 1>&2 "FAILED ($x)."; exit $x' 0
+
+die() { local exitcode="$1"; shift; echo 1>&2 "$@"; trap '' 0; exit $exitcode; }
+
+STACK_VERSION="3.1.1"
+
+stackbin=~/.local/bin
+export PATH="$PATH:$stackbin"
+
+install_stack() {
+    if stackver=$(stack --version); then
+        if ! [[ "$stackver" =~ ^Version\ ${STACK_VERSION},.* ]]; then
+            echo "WARNING: Tested with stack version $STACK_VERSION, currently using:"
+            echo "$stackver"
+        fi
+        return
+    fi
+
+    echo "Installing stack to $stackbin/"
+    echo "This may need to sudo to install additional OS packages."
+    mkdir -p "$stackbin"
+    curl -sSL https://get.haskellstack.org/ | sh -s - -d "$stackbin"
+}
+
+#   Install Haskell Stack if necessary and ensure it's in $PATH.
+install_or_upgrade_stack() {
+    #   Don't try to upgrade a non-clean build more than once per hour.
+    local ts_file="$basedir/.stack-work/stack-upgrade-timestamp"
+    local ts=$(stat --format "%Y" "$ts_file" 2>/dev/null)
+    : ts=${ts:=0}
+    local age=$(( $(date '+%s') - $ts))
+    [[ $age -lt 3600 ]] && return 0     # Don't check more than once per hour.
+
+    stack upgrade || stack --version 2>/dev/null || {
+        install_stack
+    }
+
+    mkdir -p "$(dirname "$ts_file")"
+    touch "$ts_file"
+}
+
+set_prod_release_branch() {
+    curbranch=$(git rev-parse --abbrev-ref HEAD)
+    [[ $curbranch = main ]] || die 1 \
+        '--prod-release works only on `main` branch'
+    relbranch=gh-pages
+}
+
+set_dev_release_branch() {
+    curbranch=$(git rev-parse --abbrev-ref HEAD)
+    [[ $curbranch = dev/* ]] || die 1 \
+        '--dev-release work only on `dev/...` branches'
+    relbranch="${curbranch}-release"
+    if ! >/dev/null 2>&1 git rev-parse --abbrev-ref "$relbranch" --; then
+        gh_pages_first_commit=3fc175ceffd20d462c543c4ed70c21b62aae7427
+        echo "Creating branch $relbranch"
+        git branch "$relbranch" "$gh_pages_first_commit"
+    fi
+}
+
+usage() {
+    local errmsg="$@"
+    [[ -n $errmsg ]] && echo 1>&2 "Argument error: $errmsg"
+    cat 1>&2 <<_____
+Usage: $(basename "$0") [options]
+Options:
+  -C              clean build (this project only, not Stack dependencies)
+  -h, --help      print this help message
+  -t, --test-only compile code and run its unit tests only; don't compile site
+  --prod-release  commit compiled site to gh-pages branch
+  --dev-release   commit compiled site to dev release branch
+_____
+    trap '' 0
+    exit 2
+}
+
+test_only=false
+while true; do case "$1" in
+    -C)                 shift; git clean -fdX;;
+    --prod-release)     shift; set_prod_release_branch;;
+    --dev-release)      shift; set_dev_release_branch;;
+    -h|--help)          shift; usage;;
+    -t|--test-only)     shift; test_only=true;;
+    -*)                 usage "unknown option: '$1'";;
+    *)                  break;;
+esac; done
+[[ ${#@} -eq 0 ]] || usage "extra arguments:" "$@"
+
+basedir=$(cd "$(dirname "$0")" && pwd -P)
+cd "$basedir"
+
+# Let's not auto-upgrade for now
+# install_or_upgrade_stack
+install_stack
+
+stack build --test
+if ! $test_only; then
+    #   `site-compiler build` does an incremental build that assumes that
+    #   the site compiler hasn't changed. We need `rebuild` in case it
+    #   has. (An optimization would be to detect whether the site compiler
+    #   has changed or not.)
+    stack exec site-compiler rebuild
+
+    [[ $relbranch ]] && {
+        echo "Committing compiled site in _site/ to $relbranch"
+        bin/git-commit-filetree "$relbranch" _site/
+        echo 'Release with:'
+        echo "    git push origin $relbranch"
+    }
+fi
+
+trap '' 0

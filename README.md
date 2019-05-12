@@ -1,12 +1,11 @@
 Configuration Is Code Blog
 ==========================
 
-This blog was quickly thrown together with [Metalsmith], using the
-[Jade] template engine and [Bootstrap 4].
+Copyright 2018-2019 by Curt J. Sampson. All rights reserved.
 
-[Metalsmith]: http://www.metalsmith.io/
-[Jade]: http://jadelang.net/
-[Pug]: https://pugjs.org/
+This blog uses, among other things: [Hakyll]; [Bootstrap 4].
+
+[Hakyll]: https://jaspervdj.be/hakyll/
 [Bootstrap 4]: http://v4-alpha.getbootstrap.com/
 
 

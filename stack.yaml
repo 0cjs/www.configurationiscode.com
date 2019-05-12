@@ -1,0 +1,16 @@
+#   This file determines where we get dependencies.
+#   You still need to add dependencies to the `.cabal` file.
+#
+#   Documentation for this file is found at:
+#       https://docs.haskellstack.org/en/stable/yaml_configuration/
+#   Also see the Git history or run `stack new myproject` to see a
+#   sample file with lots of descriptive comments.
+
+snapshot: lts-22.28
+
+#   Paths to all packages (with a .cabal file) in this repo.
+packages: [.]
+
+#   Extra dependencies not in the resolver above.
+#   For image resizing, add `hakyll-images-1.2.2`.
+extra-deps: []

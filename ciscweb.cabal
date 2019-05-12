@@ -1,0 +1,38 @@
+cabal-version:          2.2
+
+--
+--  ciscweb - Configuration Is Code Website
+--
+
+name:                   ciscweb
+version:                0.0.0.0
+synopsis:               Configuration Is Code Website
+homepage:               https://www.configurationiscode.com/
+                        -- AllRightsReserved is not a valid SPDX license.
+                        -- Cabal suggests using NONE instead.
+license:                NONE
+author:                 Curt J. Sampson
+maintainer:             Curt J. Sampson
+copyright:              2018-2019 Curt J. Sampson
+category:               website
+build-type:             Simple
+extra-source-files:     README.md
+
+common deps
+    default-language:   Haskell2010
+    ghc-options:        -threaded -Werror -fwarn-incomplete-patterns
+    build-depends:      base >= 4.7 && < 5,
+                        hakyll, pandoc,
+                        filepath
+
+executable site-compiler
+    import:             deps
+    main-is:            app/SiteCompiler.hs
+
+test-suite test
+    import:             deps
+    type:               exitcode-stdio-1.0
+    main-is:            ../app/Test.hs
+    build-depends:      HTF
+    hs-source-dirs:     src/
+    other-modules:      CIsCweb.Hello, CIsCweb.HelloTest
