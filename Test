@@ -95,6 +95,7 @@ cd "$basedir"
 # install_or_upgrade_stack
 install_stack
 
+mkdir -p .build/stack       # stack.yaml specifies work-dir under this
 stack build --test
 if ! $test_only; then
     #   `site-compiler build` does an incremental build that assumes that

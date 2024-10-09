@@ -14,3 +14,6 @@ packages: [.]
 #   Extra dependencies not in the resolver above.
 #   For image resizing, add `hakyll-images-1.2.2`.
 extra-deps: []
+
+#   XXX
+work-dir: .build/stack/work

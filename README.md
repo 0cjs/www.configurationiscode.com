@@ -5,8 +5,10 @@ Copyright 2018-2019 by Curt J. Sampson. All rights reserved.
 
 This blog uses, among other things: [Hakyll]; [Bootstrap 4].
 
-[Hakyll]: https://jaspervdj.be/hakyll/
-[Bootstrap 4]: http://v4-alpha.getbootstrap.com/
+### Building
+
+Note that you should run `./Test` at least once when you start with
+a clean checkout. After that, you can run `stack` directly.
 
 
 To-do List
@@ -21,3 +23,9 @@ To-do List
   deprecated versions; we should update.
 * Should we be using Bootstrap from its CDN? Probably not, because
   we also want to be able to develop when offline.
+
+
+
+<!-------------------------------------------------------------------->
+[Hakyll]: https://jaspervdj.be/hakyll/
+[Bootstrap 4]: http://v4-alpha.getbootstrap.com/
