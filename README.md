@@ -7,10 +7,20 @@ This blog uses, among other things: [Hakyll]; [Bootstrap 4].
 
 ### Building
 
-Run `./Test` to build the site builder, run the tests, and run the
-site builder to build the site. (You may also use `stack` directly,
-but note that you should be including any command-line options that
-`Test` passes to `stack`.)
+Run `./Test` to build the code and the site. This will:
+- Build `site-compiler` and `test`;
+- Run `test` to unit test Haskell code; and
+- Run `site-compiler rebuild` to do a clean build of the website.
+
+`Test` accepts some additional options; use `-h` to see help.
+
+If you supply additional command line arguments to `Test`, these will be
+passed to `site-compiler`, replacing the `rebuild` command that's normally
+run. A common one is `./Test watch` to start a preview server and rebuild
+when site files are changed. Use `./Test -- -h` for site-compiler help.
+
+You may also use `stack` directly to run arbitrary commands, but make sure
+to include any command-line options that `Test` passes to `stack`.
 
 
 To-do List

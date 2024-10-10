@@ -64,13 +64,14 @@ usage() {
     local errmsg="$@"
     [[ -n $errmsg ]] && echo 1>&2 "Argument error: $errmsg"
     cat 1>&2 <<_____
-Usage: $(basename "$0") [options]
+Usage: $(basename "$0") [options] [site-compiler opts/args]
 Options:
   -C              clean build (this project only, not Stack dependencies)
   -h, --help      print this help message
   -t, --test-only compile code and run its unit tests only; don't compile site
   --prod-release  commit compiled site to gh-pages branch
   --dev-release   commit compiled site to dev release branch
+  --              ignore all options after this (for bare site-compiler opts)
 _____
     trap '' 0
     exit 2
@@ -83,10 +84,11 @@ while true; do case "$1" in
     --dev-release)      shift; set_dev_release_branch;;
     -h|--help)          shift; usage;;
     -t|--test-only)     shift; test_only=true;;
+    --)                 shift; break;;
     -*)                 usage "unknown option: '$1'";;
     *)                  break;;
 esac; done
-[[ ${#@} -eq 0 ]] || usage "extra arguments:" "$@"
+#   Additional command line args are passed to site-builder.
 
 basedir=$(cd "$(dirname "$0")" && pwd -P)
 cd "$basedir"
@@ -102,7 +104,8 @@ if ! $test_only; then
     #   the site compiler hasn't changed. We need `rebuild` in case it
     #   has. (An optimization would be to detect whether the site compiler
     #   has changed or not.)
-    stack exec site-compiler rebuild
+    [[ $# -eq 0 ]] && set rebuild
+    stack exec -- site-compiler "$@"
 
     [[ $relbranch ]] && {
         echo "Committing compiled site in _site/ to $relbranch"
