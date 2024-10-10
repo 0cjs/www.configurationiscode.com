@@ -99,7 +99,7 @@ cd "$basedir"
 install_stack
 
 mkdir -p .build/stack       # stack.yaml specifies work-dir under this
-stack test \
+stack --lock-file=ignore test \
     --test-arguments=-q \
     --test-arguments=--history=.build/HTF.test.history \
 
@@ -109,7 +109,7 @@ if ! $test_only; then
     #   has. (An optimization would be to detect whether the site compiler
     #   has changed or not.)
     [[ $# -eq 0 ]] && set build
-    stack exec -- site-compiler "$@"
+    stack --lock-file=ignore exec -- site-compiler "$@"
 
     [[ $relbranch ]] && {
         echo "Committing compiled site in _site/ to $relbranch"
