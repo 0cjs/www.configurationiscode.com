@@ -7,8 +7,10 @@ This blog uses, among other things: [Hakyll]; [Bootstrap 4].
 
 ### Building
 
-Note that you should run `./Test` at least once when you start with
-a clean checkout. After that, you can run `stack` directly.
+Run `./Test` to build the site builder, run the tests, and run the
+site builder to build the site. (You may also use `stack` directly,
+but note that you should be including any command-line options that
+`Test` passes to `stack`.)
 
 
 To-do List
