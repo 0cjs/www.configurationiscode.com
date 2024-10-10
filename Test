@@ -98,7 +98,10 @@ cd "$basedir"
 install_stack
 
 mkdir -p .build/stack       # stack.yaml specifies work-dir under this
-stack build --test --test-arguments=--history=.build/HTF.test.history
+stack test \
+    --test-arguments=-q \
+    --test-arguments=--history=.build/HTF.test.history \
+
 if ! $test_only; then
     #   `site-compiler build` does an incremental build that assumes that
     #   the site compiler hasn't changed. We need `rebuild` in case it
