@@ -23,6 +23,15 @@ main = hakyllWith config $ do
             pandocCompiler >>= loadAndApplyTemplate
                 "site/template/default.tmpl" defaultContext
 
+    -- Draft posts are under a separate path component and have no date.
+    match "site/pages/draft/*.md" $ do
+        route   $ composeRoutes
+                    (dropInitialComponents 2) (setExtension "html")
+        compile $ do
+            -- XXX wrong template, but good enough for the moment
+            pandocCompiler >>= loadAndApplyTemplate
+                "site/template/default.tmpl" defaultContext
+
     match "site/pages/index.md" $ do
         route   $ composeRoutes
                     (dropInitialComponents 2) (setExtension "html")
