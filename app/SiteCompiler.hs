@@ -15,7 +15,15 @@ main = hakyllWith config $ do
 
     match "site/template/**" $ compile templateBodyCompiler
 
-    match "site/pages/*.md" $ do
+    -- Top-level stand-alone pages
+    match ("site/pages/*.md" .&&. complement "site/pages/index.md") $ do
+        route   $ composeRoutes
+                    (dropInitialComponents 2) (setExtension "html")
+        compile $ do
+            pandocCompiler >>= loadAndApplyTemplate
+                "site/template/default.tmpl" defaultContext
+
+    match "site/pages/index.md" $ do
         route   $ composeRoutes
                     (dropInitialComponents 2) (setExtension "html")
         compile $ do
