@@ -13,6 +13,15 @@ main = hakyllWith config $ do
         route   (dropInitialComponents 2)
         compile copyFileCompiler
 
+    match "site/template/**" $ compile templateBodyCompiler
+
+    match "site/pages/*.md" $ do
+        route   $ composeRoutes
+                    (dropInitialComponents 2) (setExtension "html")
+        compile $ do
+            pandocCompiler >>= loadAndApplyTemplate
+                "site/template/default.tmpl" defaultContext
+
     where
         config = defaultConfiguration
             { storeDirectory = ".build/hakyll/cache"
