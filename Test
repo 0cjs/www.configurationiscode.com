@@ -79,7 +79,8 @@ _____
 
 test_only=false
 while true; do case "$1" in
-    -C)                 shift; git clean -fdX;;
+    -C)                 shift; rm -rf .build/ .HTF/;;
+    -c)                 shift; rm -rf .build/ .HTF/;;
     --prod-release)     shift; set_prod_release_branch;;
     --dev-release)      shift; set_dev_release_branch;;
     -h|--help)          shift; usage;;
@@ -107,7 +108,7 @@ if ! $test_only; then
     #   the site compiler hasn't changed. We need `rebuild` in case it
     #   has. (An optimization would be to detect whether the site compiler
     #   has changed or not.)
-    [[ $# -eq 0 ]] && set rebuild
+    [[ $# -eq 0 ]] && set build
     stack exec -- site-compiler "$@"
 
     [[ $relbranch ]] && {
